@@ -1,24 +1,18 @@
-public class TestCoefficient {
-}
-
-
-// the code can run, but the test has issue with import packages.
-
-/*
 import elements.Coefficient;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.Assert.assertTrue;
+
+// this test will fail due to unknown reason
 
 public class TestCoefficient {
 
-    // test whether the method can change the value of the coefficient.
+    Coefficient c = new Coefficient(0);
     @Test
-    public void testValueChanging(){
-        Coefficient c = new Coefficient(1);
-        assertTrue(c.getCoevalue() == 1);
+    public void testChangeValue(){
+        assertTrue(c.getCoevalue()==1);
         c.changeValue(2);
-        assertTrue(c.getCoevalue() == 2);
+        assertTrue(c.getCoevalue()==2);
     }
 }
-*/
