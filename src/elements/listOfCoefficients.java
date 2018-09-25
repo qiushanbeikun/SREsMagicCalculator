@@ -12,6 +12,9 @@ public class listOfCoefficients {
     private String operation;
     private int valueToChange;
 
+    //REQUIRES: nothing
+    //MODIFIES: this
+    //EFFECTS: add Coefficient to the list items from user input
     public void gatherInput(){
         System.out.println("Please enter the first value as the quadratic coefficient.");
         addCoe(scanner.nextDouble());
@@ -22,6 +25,10 @@ public class listOfCoefficients {
         changes();
     }
 
+    //REQUIRES: theoratically the list items should not be empty, but it can work with an empty list
+    //MODIFIES: this
+    //EFFECTS: change values in the list items
+    //         it can only change one value at this moment, but can change more when updated.
     public void changes(){
         System.out.println("Do you want to change the value you just put in?");
         System.out.println("Please enter Y for yes and N for no.");
@@ -46,24 +53,23 @@ public class listOfCoefficients {
         }
     }
 
+    //REQUIRES: double
+    //MODIFIES: this
+    //EFFECTS: add Coefficient in the list items.
     public void addCoe(double scanedDouble){
         Coefficient coefficient = new Coefficient(scanedDouble);
         items.add(coefficient);
     }
 
-    //REQUIRES: item should be double
-    //MODIFIES: the list items
-    //EFFECTS: Add a new item, which is a double into the list item
-
-
+    //helper method
     public double getOne(){
         return items.get(0).coefficient;
     }
-
+    //helper method
     public double getTwo(){
         return items.get(1).coefficient;
     }
-
+    //helper method
     public double getThree(){
         return items.get(2).coefficient;
     }
