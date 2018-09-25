@@ -1,7 +1,8 @@
+public class TestCoefficient {
+}
+
 
 // the code can run, but the test has issue with import packages.
-
-package tests;
 
 /*
 import elements.Coefficient;
