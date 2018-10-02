@@ -2,17 +2,36 @@ package elements;
 
 
 import model.Lists;
+import model.Values;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.IOException;
 
-public class listOfCoefficients implements Lists{
+public class listsOfCoefficients implements Lists {
 
-    private ArrayList<Coefficient> items = new ArrayList<>();
+    private ArrayList<Coefficient> items ;
     private Scanner scanner = new Scanner(System.in);
-    Coefficient value = new Coefficient(0);
+    Values value = new Coefficient(0);
     private String operation;
     private int valueToChange;
+
+    // the list is an empty list
+    public listsOfCoefficients(){
+        items = new ArrayList<>();
+    }
+
+    public void importFile() throws IOException{
+        List<String> lines = Files.readAllLines(Paths.get("inputfile.txt"));
+        addElement(Double.valueOf(lines.get(0)));
+        addElement(Double.valueOf(lines.get(1)));
+        addElement(Double.valueOf(lines.get(2)));
+    }
 
     //REQUIRES: nothing
     //MODIFIES: this
@@ -24,18 +43,8 @@ public class listOfCoefficients implements Lists{
         addElement(scanner.nextDouble());
         System.out.println("Please enter the third value as the constant.");
         addElement(scanner.nextDouble());
-        changes();
-    }
-
-    //REQUIRES: theoretically the list items should not be empty, but it can work with an empty list
-    //MODIFIES: this
-    //EFFECTS: change values in the list items
-    //         it can only change one value at this moment, but can change more when updated.
-    @Override
-    public void changes() {
         System.out.println("Do you want to change the value you just put in?");
         System.out.println("Please enter Y for yes and N for no.");
-
         operation = scanner.nextLine();
         if (operation.equals("Y")) {
             System.out.println("Please select the coefficient you want to change");
@@ -43,13 +52,13 @@ public class listOfCoefficients implements Lists{
             valueToChange = scanner.nextInt();
             if (valueToChange == 1) {
                 System.out.println("Please enter the new value.");
-                items.get(0).coefficient = scanner.nextDouble();
+                changes(0, scanner.nextDouble());
             } else if (valueToChange == 2) {
                 System.out.println("Please enter the new value.");
-                items.get(1).coefficient = scanner.nextDouble();
+                changes(1, scanner.nextDouble());
             } else if (valueToChange == 3) {
                 System.out.println("Please enter the new value.");
-                items.get(2).coefficient = scanner.nextDouble();
+                changes(2, scanner.nextDouble());
             } else {
                 System.out.println("INVALID POSITION");
             }
@@ -58,6 +67,15 @@ public class listOfCoefficients implements Lists{
         } else {
             System.out.println("INVALID COMMAND");
         }
+    }
+
+    //REQUIRES: an integer indicates the position of the element in the list; a double for the new value
+    //MODIFIES: this
+    //EFFECTS: change values in the list items
+    //         it can only change one value at this moment, but can change more when updated.
+    @Override
+    public void changes(int position, double newValue) {
+        items.get(position).coefficient = newValue;
     }
 
     //REQUIRES: double
@@ -71,7 +89,7 @@ public class listOfCoefficients implements Lists{
 
 
     @Override
-    public void removeElement(){
+    public void removeElement(int position){
         ////////////////////////////////
     }
 

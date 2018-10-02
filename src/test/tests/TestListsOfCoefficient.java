@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-public class TestListOfCoefficient {
+public class TestListsOfCoefficient {
 
 
     @Test
