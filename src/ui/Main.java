@@ -34,9 +34,9 @@ public class Main {
             System.out.println("This function has no root. ");
             System.out.println("Please enter a new function.");
         }
-        // this loop is just for test, will be deleted in the future.
+        /*// this loop is just for test, will be deleted in the future.
         System.out.println("A new function starts here!!!");
-        gatherInfo();
+        gatherInfo();*/
     }
 
 }

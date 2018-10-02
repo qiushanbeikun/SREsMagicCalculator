@@ -1,6 +1,8 @@
 package elements;
 
-public class Coefficient {
+import model.Values;
+
+public class Coefficient implements Values{
     double coefficient;
 
     //REQUIRES: the input should be double
@@ -10,6 +12,7 @@ public class Coefficient {
         coefficient = input;
     }
 
+    @Override
     //REQUIRES: the input should be double
     //MODIFIES: this
     //EFFECTS: change the value of coefficient ot the new input
@@ -17,11 +20,17 @@ public class Coefficient {
         coefficient = newInput;
     }
 
-    //help method
-    //REQUIRES: nothing
-    //MODIFIES； nothing
-    //EFFECTS: return the value of coefficient
-    public double getCoevalue(){
+    @Override
+    //REQUIRES: double input
+    //MODIFIES: this
+    //EFFECTS: a quick access to change the value of Coe to its negative
+    public void changeSign(){
+        coefficient = -coefficient;
+    }
+
+    //EFFECTS: return the value itself
+    public double getValue(){
         return coefficient;
     }
+
 }
