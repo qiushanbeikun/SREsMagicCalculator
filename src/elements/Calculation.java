@@ -21,4 +21,6 @@ public class Calculation {
         return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
     }
 
+    public double calculatepoint(double a, double b, double c, double x){return a*x*x+b*x+c;}
+
 }

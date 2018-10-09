@@ -20,7 +20,7 @@ public class Main {
 
     private void gatherInfo() throws IOException {
 
-        boolean reloadStatus = true;
+        boolean reloadStatus = true ;
         Calculation Calculation = new Calculation();
         listsOfCoefficients LOC = new listsOfCoefficients();
         List<Double> ans = new ArrayList<>();

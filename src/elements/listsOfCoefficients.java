@@ -2,11 +2,11 @@ package elements;
 
 
 import model.Lists;
-import model.Values;
 
-import java.io.File;
+
+
 import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class listsOfCoefficients implements Lists {
 
     private ArrayList<Coefficient> items ;
     private Scanner scanner = new Scanner(System.in);
-    Values value = new Coefficient(0);
+    //Values value = new Coefficient(0);
     private String operation;
     private int valueToChange;
 

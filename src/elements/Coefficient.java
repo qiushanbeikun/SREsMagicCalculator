@@ -2,7 +2,7 @@ package elements;
 
 import model.Values;
 
-public class Coefficient implements Values{
+public class Coefficient implements Values {
     double coefficient;
 
     //REQUIRES: the input should be double
