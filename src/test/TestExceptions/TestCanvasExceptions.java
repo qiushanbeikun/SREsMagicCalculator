@@ -1,5 +1,3 @@
-package TestExceptions;
-
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
 import elements.Canvas.Canvas;
