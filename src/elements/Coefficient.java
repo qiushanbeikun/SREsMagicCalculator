@@ -9,7 +9,7 @@ public class Coefficient implements Values {
     //REQUIRES: the input should be double
     // MODIFIES: this
     // EFFECTS: initialize the coefficient with the value in input
-    public Coefficient(double input, int index){
+    public Coefficient(double input, int index) throws NumberFormatException{
         coefficient = input;
         this.index = index;
     }
@@ -34,5 +34,7 @@ public class Coefficient implements Values {
     public double getValue(){
         return coefficient;
     }
+
+
 
 }

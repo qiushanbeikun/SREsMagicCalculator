@@ -3,17 +3,14 @@ package elements;
 
 import model.Lists;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class ListsOfCoefficients implements Lists {
 
     private ArrayList<Coefficient> items ;
-    private Scanner scanner = new Scanner(System.in);
-    private String operation;
-    private int valueToChange;
 
-    // the list is an empty list
+
+    // create an empty list
     public ListsOfCoefficients(){
         items = new ArrayList<>();
     }
@@ -25,7 +22,10 @@ public class ListsOfCoefficients implements Lists {
     //         it can only change one value at this moment, but can change more when updated.
     @Override
     public void changes(int position, double newValue) {
-        items.get(position).coefficient = newValue;
+        if (position >2){
+            throw new ArrayIndexOutOfBoundsException("POSITION OUT OF LIST SIZE");
+        }
+        items.get(position).changeValue(newValue);
     }
 
 
@@ -36,9 +36,7 @@ public class ListsOfCoefficients implements Lists {
         items.add(c);
     }
 
-    public Coefficient get(int integer){
-        return items.get(integer);
-    }
+
 
 
     @Override

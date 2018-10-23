@@ -1,8 +1,10 @@
 package ui;
 
-import elements.Calculation;
+
+import elements.Canvas.Canvas;
 import elements.Coefficient;
 import elements.ListsOfCoefficients;
+import elements.Points.TwoDPoints;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -22,7 +24,9 @@ public class Main {
 
         main.printResult(loc, answerlist);
 
-        main.saveResult(loc, answerlist);
+        main.saveResult(answerlist);
+
+        main.draw2DGraph(loc);
     }
 
     private ListsOfCoefficients getCoefficients(){
@@ -79,11 +83,12 @@ public class Main {
 
         newCoe = Double.parseDouble(getUserResponse());
 
-        loc.changes(index,newCoe);
+        try{loc.changes(index,newCoe);}
+        catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("out of bound");
+        }
 
         return loc;
-
-
     }
 
     private List<Double> calculation(ListsOfCoefficients loc){
@@ -110,7 +115,7 @@ public class Main {
         }
     }
 
-    private void saveResult(ListsOfCoefficients loc, List<Double> list){
+    private void saveResult(List<Double> list){
         PrintWriter writer = null;
         try {
             writer = new PrintWriter("outputfile.txt","UTF-8");
@@ -139,23 +144,28 @@ public class Main {
         return line;
     }
 
+    private void draw2DGraph(ListsOfCoefficients loc){
+        Canvas ca = new Canvas(0,10,10,0,loc);
+        List<TwoDPoints> newList = ca.getList();
+        for (TwoDPoints tdp: newList
+             ) {
+            System.out.println(tdp.getX());
+        }
+    }
+
     private double calculateDelta(double a, double b, double c){
         return b*b-4*a*c;
     }
 
-    //REQUIRES: three integers as the three coefficients
-    //EFFECTS: returns a double which is the first root of the equation
     private double calculateAnswerTwo(double a, double b, double c){
         return (-b-Math.sqrt(b*b-4*a*c))/(2*a);
     }
 
-    //REQUIRES: three integers as the three coefficients
-    //EFFECTS: returns a double which is the second root of the equation
     private double calculateAnswerOne(double a, double b, double c){
         return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
     }
 
-    private double calculatepoint(double a, double b, double c, double x){return a*x*x+b*x+c;}
+
 
 
 }
