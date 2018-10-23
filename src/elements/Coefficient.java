@@ -4,12 +4,14 @@ import model.Values;
 
 public class Coefficient implements Values {
     double coefficient;
+    int index;
 
     //REQUIRES: the input should be double
     // MODIFIES: this
     // EFFECTS: initialize the coefficient with the value in input
-    public Coefficient(double input){
+    public Coefficient(double input, int index){
         coefficient = input;
+        this.index = index;
     }
 
     @Override

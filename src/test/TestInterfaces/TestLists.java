@@ -13,9 +13,8 @@ public class TestLists {
     @Test
     public void testAdd(){
         Lists LOD = new RegularList();
-        LOD.addElement(1);
-        LOD.addElement(2);
-        LOD.addElement(3);
+
+
         assertTrue(true);
 
     }

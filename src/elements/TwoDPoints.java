@@ -33,9 +33,10 @@ public class TwoDPoints extends GraphicPoint{
 
 
     public boolean pointOnTheGraph(){
-        Calculation Calculation = new Calculation();
-        return y == Calculation.calculatepoint(1,2,3,4);
+        return false;
     }
 
-
+/*    public int getWhatever(){
+        return (int) twodpoints.get(0);
+    }*/
 }

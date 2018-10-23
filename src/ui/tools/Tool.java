@@ -12,7 +12,7 @@ public abstract class Tool {
     private boolean active;
 
 
-    public Tool(Main editor, JComponent parent) {
+    protected Tool(Main editor, JComponent parent) {
         this.editor = editor;
         createButton(parent);
         addToParent(parent);
@@ -26,7 +26,7 @@ public abstract class Tool {
     public void addToParent(JComponent parent) {
         parent.add(button);
     }
-    
+
 
     protected abstract void addListener();
 

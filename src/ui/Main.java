@@ -1,67 +1,161 @@
 package ui;
 
 import elements.Calculation;
-import elements.listsOfCoefficients;
+import elements.Coefficient;
+import elements.ListsOfCoefficients;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    private Main(){
-    }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Main main = new Main();
-        main.gatherInfo();
+
+        ListsOfCoefficients loc = main.getCoefficients();
+
+        List<Double> answerlist = main.calculation(loc);
+
+        main.printResult(loc, answerlist);
+
+        main.saveResult(loc, answerlist);
     }
 
-    private void gatherInfo() throws IOException {
-
-        boolean reloadStatus = true ;
-        Calculation Calculation = new Calculation();
-        listsOfCoefficients LOC = new listsOfCoefficients();
-        List<Double> ans = new ArrayList<>();
+    private ListsOfCoefficients getCoefficients(){
+        System.out.println("Welcome to the Quadratic equation solver.");
+        boolean reloadStatus = true;
+        Coefficient c1,c2,c3;
 
         if (reloadStatus) {
-            LOC.gatherInput();
-        } else {
-            LOC.importFile();
-        }
-        ans.add(LOC.getOne());
-        ans.add(LOC.getTwo());
-        ans.add(LOC.getThree());
-        //LOC.changes();
-        if (Calculation.calculateDelta(LOC.getOne(), LOC.getTwo(), LOC.getThree()) >= 0) {
-            System.out.println("Roots for:  " + LOC.getOne() + "x^2+" + LOC.getTwo() + "x+" + LOC.getThree() + "=0.0");
 
-
-            if (Calculation.calculateDelta(LOC.getOne(), LOC.getTwo(), LOC.getThree()) == 0) {
-                System.out.println("This function only have one root");
-                System.out.println("Root is " + Calculation.calculateAnswerOne(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-                ans.add(Calculation.calculateAnswerOne(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-
-            } else {
-                System.out.println("Rout 1 is" + Calculation.calculateAnswerOne(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-                System.out.println("Root 2 is" + Calculation.calculateAnswerTwo(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-                ans.add(Calculation.calculateAnswerOne(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-                ans.add(Calculation.calculateAnswerTwo(LOC.getOne(), LOC.getTwo(), LOC.getThree()));
-
-            }
-        } else {
-            System.out.println("This function has no root. ");
-            System.out.println("Please enter a new function.");
-            ans = null;
-
+            System.out.println("Please enter the first value as the quadratic coefficient.");
+            c1 = new Coefficient(Double.parseDouble(getUserResponse()), 1);
+            System.out.println("Please enter the second value as the monomial coefficient.");
+            c2 = new Coefficient(Double.parseDouble(getUserResponse()), 2);
+            System.out.println("Please enter the third value as the constant.");
+            c3 = new Coefficient(Double.parseDouble(getUserResponse()), 3);
+        } else{
+            List<String> lines = null;
+            try {
+                lines = Files.readAllLines(Paths.get("inputfile.txt"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } /////////////////////////////////////////////////////////////////////////////////
+            c1 = new Coefficient(Double.valueOf(lines.get(0)),1);
+            c2 = new Coefficient(Double.valueOf(lines.get(0)),2);
+            c3 = new Coefficient(Double.valueOf(lines.get(0)),3);
         }
 
-        PrintWriter writer = new PrintWriter("outputfile.txt", "UTF-8");
-        for (Double a : ans) {
-            writer.println(a);
+        ListsOfCoefficients loc = new ListsOfCoefficients();
+
+        loc.addElement(c1);
+        loc.addElement(c2);
+        loc.addElement(c3);
+
+        System.out.println("Do you want to change your coefficients, enter true or false");
+        boolean changeCoe = Boolean.parseBoolean(getUserResponse());
+
+        if (changeCoe){
+            loc = changeCoefficients(loc);
         }
-        //System.out.println(ans.get(0));
+
+        return loc;
 
     }
+
+    private ListsOfCoefficients changeCoefficients(ListsOfCoefficients loc){
+        int index;
+        double newCoe;
+        System.out.println("Please select the coefficient you want to change");
+        System.out.println("1 for the first value, 2 for the second value and 3 for the third value");
+
+        index = Integer.parseInt(getUserResponse())-1;
+
+        System.out.println("Please enter the new value.");
+
+        newCoe = Double.parseDouble(getUserResponse());
+
+        loc.changes(index,newCoe);
+
+        return loc;
+
+
+    }
+
+    private List<Double> calculation(ListsOfCoefficients loc){
+        List<Double> answerList = new ArrayList<>();
+        double ans1 = calculateAnswerOne(loc.getOne(),loc.getTwo(),loc.getThree());
+        double ans2 = calculateAnswerTwo(loc.getOne(),loc.getTwo(),loc.getThree());
+        if (calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree())>0){
+            answerList.add(ans1);
+            answerList.add(ans2);
+        } else if (calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree()) ==0){
+            answerList.add(ans1);
+        } else {
+            answerList = null;
+        }
+        return answerList;
+    }
+
+
+    private void printResult(ListsOfCoefficients loc, List<Double> list){
+        System.out.println("Calculation result for "+loc.getOne()+"x^2+"+loc.getTwo()+"x+"+loc.getThree()+"=0");
+        for (Double a: list
+             ) {
+            System.out.println(a);
+        }
+    }
+
+    private void saveResult(ListsOfCoefficients loc, List<Double> list){
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("outputfile.txt","UTF-8");
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("UnsupportedEncodingException");
+        }
+        for (Double a: list
+             ) {
+            writer.println(a);
+        }
+        writer.close();
+    }
+
+    private String getUserResponse() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String line = null;
+        try {
+            line = br.readLine();
+        } catch (IOException ioe) {
+            System.out.println("IO error trying to read a line of text.");
+            System.exit(1);
+        }
+        return line;
+    }
+
+    private double calculateDelta(double a, double b, double c){
+        return b*b-4*a*c;
+    }
+
+    //REQUIRES: three integers as the three coefficients
+    //EFFECTS: returns a double which is the first root of the equation
+    private double calculateAnswerTwo(double a, double b, double c){
+        return (-b-Math.sqrt(b*b-4*a*c))/(2*a);
+    }
+
+    //REQUIRES: three integers as the three coefficients
+    //EFFECTS: returns a double which is the second root of the equation
+    private double calculateAnswerOne(double a, double b, double c){
+        return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
+    }
+
+    private double calculatepoint(double a, double b, double c, double x){return a*x*x+b*x+c;}
+
+
 }

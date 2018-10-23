@@ -16,11 +16,6 @@ public class RegularList implements Lists{
 
 
     @Override
-    public void addElement(double number) {
-        aNumberList.add(number);
-    }
-
-    @Override
     public void changes(int integer, double newValue) {
         aNumberList.set(integer, newValue);
     }

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCoefficient {
 
-    Coefficient c = new Coefficient(0);
+    Coefficient c = new Coefficient(0, 1);
     @Test
     public void testChangeValue(){
         assertTrue(c.getValue()==0);
