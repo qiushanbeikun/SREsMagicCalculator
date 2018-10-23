@@ -1,9 +1,12 @@
 package elements.Canvas;
 
+import Exceptions.CanvasFieldException;
+import Exceptions.CanvasSizeException;
 import elements.ListsOfCoefficients;
 import elements.Points.TwoDPoints;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Canvas {
@@ -30,11 +33,24 @@ public class Canvas {
 
     }
 
+    public String checkCanvas() throws CanvasFieldException, CanvasSizeException {
+        if (xLeftBound>xRightBound || yUpBound<yDownBound){
+            throw new CanvasFieldException("Your canvas's field is not correct.");
+        }
+        if (Math.abs(xRightBound-xLeftBound) != Math.abs(yUpBound-yDownBound)){
+            throw new CanvasSizeException("Your canvas is not square.");
+        }
+
+
+
+        return"";
+    }
 
     public List<TwoDPoints> getList(){
+        lop = new ArrayList<>();
         for (int i = 0; i < 10 ; i++) {
             for (int j = 0; j < 10 ; j++) {
-                TwoDPoints tdp = new TwoDPoints(loc, i,0+resolutionSize*j);
+                TwoDPoints tdp = new TwoDPoints(loc, i*resolutionSize,resolutionSize*j,this);
                 lop.add(tdp);
             }
         }

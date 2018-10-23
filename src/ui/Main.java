@@ -1,6 +1,8 @@
 package ui;
 
 
+import Exceptions.CanvasFieldException;
+import Exceptions.CanvasSizeException;
 import elements.Canvas.Canvas;
 import elements.Coefficient;
 import elements.ListsOfCoefficients;
@@ -147,9 +149,20 @@ public class Main {
     private void draw2DGraph(ListsOfCoefficients loc){
         Canvas ca = new Canvas(0,10,10,0,loc);
         List<TwoDPoints> newList = ca.getList();
-        for (TwoDPoints tdp: newList
-             ) {
-            System.out.println(tdp.getX());
+
+        try{
+            try {
+                ca.checkCanvas();
+            } catch (CanvasFieldException e) {
+                System.out.println(e.getMessage());
+            } catch (CanvasSizeException e) {
+                System.out.println(e.getMessage());
+            }
+        }finally {
+            for (TwoDPoints tdp: newList
+                 ) {
+                System.out.println("("+tdp.getX()+","+tdp.getY()+")");
+            }
         }
     }
 

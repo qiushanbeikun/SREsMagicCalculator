@@ -1,6 +1,7 @@
 package elements.Points;
 
 
+import elements.Canvas.Canvas;
 import elements.ColorIndicator;
 import elements.ListsOfCoefficients;
 
@@ -14,15 +15,15 @@ public class TwoDPoints extends GraphicPoint {
     private double curveValue;
     private ColorIndicator color;
     private ListsOfCoefficients loc;
-    private double resolutionSize =0.01;
-    //private Canvas canvas;
+    //private double resolutionSize =0.01;
+    private elements.Canvas.Canvas canvas;
 
-    public TwoDPoints(ListsOfCoefficients loc, double x, double y ) {
+    public TwoDPoints(ListsOfCoefficients loc, double x, double y, Canvas canvas) {
         this.x = x;
         this.y = y;
         this.loc = loc;
         calculatePoint(x);
-        //this.canvas = canvas;
+        this.canvas = canvas;
     }
 
 
@@ -42,7 +43,7 @@ public class TwoDPoints extends GraphicPoint {
 
     @Override
     protected boolean ApproximateTreatment(double t, double a) {
-        return (t-a) <= resolutionSize || (a-t) <= resolutionSize;
+        return (t-a) <= canvas.resolutionSize || (a-t) <= canvas.resolutionSize;
     }
 
     private void calculatePoint(double x){
@@ -51,5 +52,9 @@ public class TwoDPoints extends GraphicPoint {
 
     public double getX(){
         return x;
+    }
+
+    public double getY(){
+        return y;
     }
 }
