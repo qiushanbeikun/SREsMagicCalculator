@@ -48,8 +48,8 @@ public class Canvas {
 
     public List<TwoDPoints> getList(){
         lop = new ArrayList<>();
-        for (int i = 0; i < 10 ; i++) {
-            for (int j = 0; j < 10 ; j++) {
+        for (int i = 0; i < 1000 ; i++) {
+            for (int j = 0; j < 1000 ; j++) {
                 TwoDPoints tdp = new TwoDPoints(loc, i*resolutionSize,resolutionSize*j,this);
                 lop.add(tdp);
             }
