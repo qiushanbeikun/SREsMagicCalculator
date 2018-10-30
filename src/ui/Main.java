@@ -109,7 +109,6 @@ public class Main {
         return answerList;
     }
 
-
     private void printResult(ListsOfCoefficients loc, List<Double> list){
         System.out.println("Calculation result for "+loc.getOne()+"x^2+"+loc.getTwo()+"x+"+loc.getThree()+"=0");
         for (Double a: list
@@ -177,8 +176,3 @@ public class Main {
     }
 
 }
-
-
-
-
-

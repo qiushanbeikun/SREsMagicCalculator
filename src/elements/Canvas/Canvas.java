@@ -14,10 +14,10 @@ import java.util.Map;
 
 public class Canvas {
 
-    public double xLeftBound;
-    public double xRightBound;
-    public double yUpBound;
-    public double yDownBound;
+    private double xLeftBound;
+    private double xRightBound;
+    private double yUpBound;
+    private double yDownBound;
     public double resolutionSize;
     private Map<String,TwoDPoints> lop;
 
@@ -55,26 +55,22 @@ public class Canvas {
     }
 
 
-
     public Map<String, TwoDPoints> getLop(){
         return lop;
     }
 
 
-
     public void addPoint(String newKey, TwoDPoints newPoint){
         if (!lop.containsKey(newKey)){
             lop.put(newKey,newPoint);
-
+            newPoint.loCan.add(this);
         }
     }
 
-
-
     // this method is reserved for future designs
-    public void drawGraph(List<GraphicPoint> lop){
+    /*public void drawGraph(List<GraphicPoint> lop){
 
-    }
+    }*/
 
 
 }

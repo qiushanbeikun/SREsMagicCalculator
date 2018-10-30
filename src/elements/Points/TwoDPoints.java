@@ -6,6 +6,8 @@ import elements.ColorIndicator;
 import elements.ListsOfCoefficients;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -15,7 +17,8 @@ public class TwoDPoints extends GraphicPoint {
     private double y;
     public ColorIndicator color;
     private ListsOfCoefficients loc;
-    private elements.Canvas.Canvas canvas;
+    public elements.Canvas.Canvas canvas;
+    public List<Canvas> loCan = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -33,13 +36,13 @@ public class TwoDPoints extends GraphicPoint {
         return Objects.hash(x, y, loc);
     }
 
-
-
     public TwoDPoints(ListsOfCoefficients loc, double x, double y, Canvas canvas) {
         this.x = x;
         this.y = y;
         this.loc = loc;
         this.canvas = canvas;
+        loCan.add(canvas);
+
     }
 
 
@@ -50,7 +53,6 @@ public class TwoDPoints extends GraphicPoint {
     private boolean pointOnCoordinate(){
         return (x == 0 || y == 0);
     }
-
 
     @Override
     public Color getColor() {
@@ -69,6 +71,17 @@ public class TwoDPoints extends GraphicPoint {
 
     private double calculatePoint(double x){
         return loc.getOne()*x*x+loc.getTwo()*x+loc.getThree();
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // i don't think this method will be actually used and
+    public void addToCanvas(int x, int y,Canvas canvas){
+        if (!loCan.contains(canvas)){
+            loCan.add(canvas);
+            canvas.addPoint(String.valueOf(x)+String.valueOf(y),this);
+
+        }
     }
 
     public double getX(){

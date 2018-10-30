@@ -37,6 +37,13 @@ public class ListsOfCoefficients implements Lists {
     }
 
 
+    /*public void checkEquation(){
+        if (getOne() == 0){
+            throw new ArithmeticException("the first coefficient cannot be zero");
+        }
+    }*/
+
+
 
 
     @Override
