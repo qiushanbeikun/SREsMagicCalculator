@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -147,8 +148,8 @@ public class Main {
     }
 
     private void draw2DGraph(ListsOfCoefficients loc){
-        Canvas ca = new Canvas(0,10,10,0,loc);
-        List<TwoDPoints> newList = ca.getList();
+        Canvas ca = new Canvas(0,10,0,10,loc);
+        Map<String, TwoDPoints> newList = ca.getPointsList();
 
         try{
             try {
@@ -158,11 +159,8 @@ public class Main {
             } catch (CanvasSizeException e) {
                 System.out.println(e.getMessage());
             }
-        }finally {
-            for (TwoDPoints tdp: newList
-                 ) {
-                System.out.println("("+tdp.getX()+","+tdp.getY()+")");
-            }
+        } finally {
+                System.out.println("the hashmap has been established successfully");
         }
     }
 
@@ -178,7 +176,9 @@ public class Main {
         return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
     }
 
-
-
-
 }
+
+
+
+
+

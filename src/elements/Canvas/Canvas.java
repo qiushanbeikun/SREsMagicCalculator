@@ -3,11 +3,14 @@ package elements.Canvas;
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
 import elements.ListsOfCoefficients;
+import elements.Points.GraphicPoint;
 import elements.Points.TwoDPoints;
 
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class Canvas {
 
@@ -16,10 +19,9 @@ public class Canvas {
     public double yUpBound;
     public double yDownBound;
     public double resolutionSize;
-    //public Canvas ca;
-    private List<TwoDPoints> lop ;
+    private Map<String,TwoDPoints> lop;
 
-    ListsOfCoefficients loc;
+    private ListsOfCoefficients loc;
 
     // assume the canvas is square
     public Canvas(double xlb, double xrb, double yub, double ydb, ListsOfCoefficients loc){
@@ -29,32 +31,49 @@ public class Canvas {
         this.yDownBound = ydb;
         resolutionSize = (xlb+xrb+ydb+yub)/2000;
         this.loc = loc;
-        //this.ca = this;
+        lop = new HashMap<>();
 
     }
 
-    public String checkCanvas() throws CanvasFieldException, CanvasSizeException {
-        if (xLeftBound>xRightBound || yUpBound<yDownBound){
+    public void checkCanvas() throws CanvasFieldException, CanvasSizeException {
+        if (xLeftBound>xRightBound || yUpBound>yDownBound){
             throw new CanvasFieldException("Your canvas's field is not correct.");
         }
         if (Math.abs(xRightBound-xLeftBound) != Math.abs(yUpBound-yDownBound)){
             throw new CanvasSizeException("Your canvas is not square.");
         }
-
-
-
-        return"";
     }
 
-    public List<TwoDPoints> getList(){
-        lop = new ArrayList<>();
-        for (int i = 0; i < 1000 ; i++) {
-            for (int j = 0; j < 1000 ; j++) {
-                TwoDPoints tdp = new TwoDPoints(loc, i*resolutionSize,resolutionSize*j,this);
-                lop.add(tdp);
+    public Map getPointsList(){
+        for (int y = 0; y <1000 ; y++) {
+            for (int x = 0; x <1000 ; x++) {
+                TwoDPoints tdp = new TwoDPoints(loc, x*resolutionSize,resolutionSize*y,this);
+                addPoint("x"+String.valueOf(y),tdp);
             }
         }
         return lop;
+    }
+
+
+
+    public Map<String, TwoDPoints> getLop(){
+        return lop;
+    }
+
+
+
+    public void addPoint(String newKey, TwoDPoints newPoint){
+        if (!lop.containsKey(newKey)){
+            lop.put(newKey,newPoint);
+
+        }
+    }
+
+
+
+    // this method is reserved for future designs
+    public void drawGraph(List<GraphicPoint> lop){
+
     }
 
 
