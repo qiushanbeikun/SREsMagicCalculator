@@ -1,7 +1,5 @@
 package ui.tools_NotToBeUsed;
 
-import ui.Main;
-
 import javax.swing.*;
 
 public abstract class Tool {

@@ -63,7 +63,7 @@ public class Canvas {
     public void addPoint(String newKey, TwoDPoints newPoint){
         if (!lop.containsKey(newKey)){
             lop.put(newKey,newPoint);
-            newPoint.loCan.add(this);
+            newPoint.canvas = this;
         }
     }
 

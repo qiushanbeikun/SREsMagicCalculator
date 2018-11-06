@@ -66,7 +66,7 @@ public class TwoDPoints extends GraphicPoint {
 
     @Override
     protected boolean ApproximateTreatment(double t, double a) {
-        return (t-a) <= canvas.resolutionSize || (a-t) <= canvas.resolutionSize;
+        return (t-a) < canvas.resolutionSize || (a-t) < canvas.resolutionSize;
     }
 
     private double calculatePoint(double x){

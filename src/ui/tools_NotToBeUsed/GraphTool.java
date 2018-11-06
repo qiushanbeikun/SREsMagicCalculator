@@ -1,8 +1,6 @@
 package ui.tools_NotToBeUsed;
 
 
-import ui.Main;
-
 import javax.swing.*;
 
 public class GraphTool extends Tool {
