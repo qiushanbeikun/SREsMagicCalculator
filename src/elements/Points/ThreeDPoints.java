@@ -3,7 +3,7 @@ package elements.Points;
 import elements.Canvas.ThreeDCanvas;
 import elements.Canvas.TwoDCanvas;
 import elements.ColorIndicator;
-import elements.ListsOfCoefficients;
+import elements.TwoDEquation;
 
 import java.awt.*;
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class ThreeDPoints extends GraphicPoint {
     private double range;
 
     public ColorIndicator color;
-    private ListsOfCoefficients loc;
+    private TwoDEquation loc;
     //canvas will be needed to determine the min max and range
     public ThreeDCanvas canvas;
 
@@ -40,7 +40,7 @@ public class ThreeDPoints extends GraphicPoint {
         return Objects.hash(x, y, z);
     }
 
-    public ThreeDPoints(ListsOfCoefficients loc, double x, double y, TwoDCanvas canvas){
+    public ThreeDPoints(TwoDEquation loc, double x, double y, TwoDCanvas canvas){
         super(loc, x, y, canvas);
         //choose default settings for the min max and range
         max=10;
@@ -51,7 +51,7 @@ public class ThreeDPoints extends GraphicPoint {
     }
 
     @Override
-    protected Color getColor() {
+    public Color getColor() {
         if (z <= min+range/6){
             color = new ColorIndicator(255, getColorPara(z), 0);
         } else if (z>min+range/6 && z<= min+range/3){

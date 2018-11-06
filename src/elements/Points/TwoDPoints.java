@@ -3,7 +3,7 @@ package elements.Points;
 
 import elements.Canvas.TwoDCanvas;
 import elements.ColorIndicator;
-import elements.ListsOfCoefficients;
+import elements.TwoDEquation;
 import java.awt.*;
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public class TwoDPoints extends GraphicPoint {
     private double x;
     private double y;
     private ColorIndicator color;
-    private ListsOfCoefficients loc;
+    private TwoDEquation loc;
     public TwoDCanvas canvas;
 
 
@@ -33,7 +33,7 @@ public class TwoDPoints extends GraphicPoint {
         return Objects.hash(x, y, loc);
     }
 
-    public TwoDPoints(ListsOfCoefficients loc, double x, double y, TwoDCanvas canvas) {
+    public TwoDPoints(TwoDEquation loc, double x, double y, TwoDCanvas canvas) {
         super(loc, x, y, canvas);
     }
 
@@ -66,4 +66,6 @@ public class TwoDPoints extends GraphicPoint {
     public double getY(){
         return y;
     }
+
+
 }

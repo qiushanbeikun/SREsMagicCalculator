@@ -1,19 +1,18 @@
 package ui;
 
-
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
 import elements.Canvas.Canvas;
+import elements.Canvas.TwoDCanvas;
 import elements.Coefficient;
-import elements.ListsOfCoefficients;
 import elements.Points.TwoDPoints;
+import elements.TwoDEquation;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
@@ -21,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
 
-        ListsOfCoefficients loc = main.getCoefficients();
+        TwoDEquation loc = main.getCoefficients();
 
         List<Double> answerlist = main.calculation(loc);
 
@@ -29,10 +28,14 @@ public class Main {
 
         main.saveResult(answerlist);
 
-        main.draw2DGraph(loc);
+        try {
+            main.draw2DGraph(loc);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private ListsOfCoefficients getCoefficients(){
+    private TwoDEquation getCoefficients(){
         System.out.println("Welcome to the Quadratic equation solver.");
         boolean reloadStatus = true;
         Coefficient c1,c2,c3;
@@ -40,11 +43,11 @@ public class Main {
         if (reloadStatus) {
 
             System.out.println("Please enter the first value as the quadratic coefficient.");
-            c1 = new Coefficient(Double.parseDouble(getUserResponse()), 1);
+            c1 = setCoefficient(1);
             System.out.println("Please enter the second value as the monomial coefficient.");
-            c2 = new Coefficient(Double.parseDouble(getUserResponse()), 2);
+            c2 = setCoefficient(2);
             System.out.println("Please enter the third value as the constant.");
-            c3 = new Coefficient(Double.parseDouble(getUserResponse()), 3);
+            c3 = setCoefficient(3);
         } else{
             List<String> lines = null;
             try {
@@ -52,12 +55,12 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             } /////////////////////////////////////////////////////////////////////////////////
-            c1 = new Coefficient(Double.valueOf(lines.get(0)),1);
-            c2 = new Coefficient(Double.valueOf(lines.get(0)),2);
-            c3 = new Coefficient(Double.valueOf(lines.get(0)),3);
+            c1 = importCoefficient(lines, 1);
+            c2 = importCoefficient(lines, 2);
+            c3 = importCoefficient(lines, 3);
         }
 
-        ListsOfCoefficients loc = new ListsOfCoefficients();
+        TwoDEquation loc = new TwoDEquation();
 
         loc.addElement(c1);
         loc.addElement(c2);
@@ -74,7 +77,19 @@ public class Main {
 
     }
 
-    private ListsOfCoefficients changeCoefficients(ListsOfCoefficients loc){
+    private Coefficient importCoefficient(List<String> lines, int i) {
+        Coefficient c1;
+        c1 = new Coefficient(Double.valueOf(lines.get(0)), i);
+        return c1;
+    }
+
+    private Coefficient setCoefficient(int i) {
+        Coefficient c1;
+        c1 = new Coefficient(Double.parseDouble(getUserResponse()), i);
+        return c1;
+    }
+
+    private TwoDEquation changeCoefficients(TwoDEquation loc){
         int index;
         double newCoe;
         System.out.println("Please select the coefficient you want to change");
@@ -94,7 +109,7 @@ public class Main {
         return loc;
     }
 
-    private List<Double> calculation(ListsOfCoefficients loc){
+    private List<Double> calculation(TwoDEquation loc){
         List<Double> answerList = new ArrayList<>();
         double ans1 = calculateAnswerOne(loc.getOne(),loc.getTwo(),loc.getThree());
         double ans2 = calculateAnswerTwo(loc.getOne(),loc.getTwo(),loc.getThree());
@@ -109,7 +124,7 @@ public class Main {
         return answerList;
     }
 
-    private void printResult(ListsOfCoefficients loc, List<Double> list){
+    private void printResult(TwoDEquation loc, List<Double> list){
         System.out.println("Calculation result for "+loc.getOne()+"x^2+"+loc.getTwo()+"x+"+loc.getThree()+"=0");
         for (Double a: list
              ) {
@@ -146,9 +161,9 @@ public class Main {
         return line;
     }
 
-    private void draw2DGraph(ListsOfCoefficients loc){
-        Canvas ca = new Canvas(0,10,0,10,loc);
-        Map<String, TwoDPoints> newList = ca.getPointsList();
+    private void draw2DGraph(TwoDEquation loc) throws IOException {
+        Canvas ca = new TwoDCanvas(0,10,0,10,loc);
+        ca.getPointsList();
 
         try{
             try {
@@ -159,7 +174,10 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         } finally {
-                System.out.println("the hashmap has been established successfully");
+            ca.drawGraph();
+            //ca.illustrate();
+
+
         }
     }
 

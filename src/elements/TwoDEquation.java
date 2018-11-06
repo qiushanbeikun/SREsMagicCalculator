@@ -5,13 +5,13 @@ import model.Lists;
 import java.util.ArrayList;
 
 
-public class ListsOfCoefficients implements Lists {
+public class TwoDEquation implements Lists {
 
     private ArrayList<Coefficient> items ;
 
 
     // create an empty list
-    public ListsOfCoefficients(){
+    public TwoDEquation(){
         items = new ArrayList<>();
     }
 
@@ -48,7 +48,7 @@ public class ListsOfCoefficients implements Lists {
 
     @Override
     public void removeElement(int position){
-        ////////////////////////////////
+
     }
 
     //helper method
