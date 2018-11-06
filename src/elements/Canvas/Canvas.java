@@ -4,26 +4,21 @@ import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
 import elements.ListsOfCoefficients;
 import elements.Points.GraphicPoint;
-import elements.Points.TwoDPoints;
-
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-
-public class Canvas {
+public abstract class Canvas {
 
     private double xLeftBound;
     private double xRightBound;
     private double yUpBound;
     private double yDownBound;
-    public double resolutionSize;
-    private Map<String,TwoDPoints> lop;
+    private double resolutionSize;
+    private Map<String,GraphicPoint> lop;
 
     private ListsOfCoefficients loc;
 
-    // assume the canvas is square
     public Canvas(double xlb, double xrb, double yub, double ydb, ListsOfCoefficients loc){
         this.xLeftBound = xlb;
         this.xRightBound = xrb;
@@ -32,7 +27,6 @@ public class Canvas {
         resolutionSize = (xlb+xrb+ydb+yub)/2000;
         this.loc = loc;
         lop = new HashMap<>();
-
     }
 
     public void checkCanvas() throws CanvasFieldException, CanvasSizeException {
@@ -44,33 +38,10 @@ public class Canvas {
         }
     }
 
-    public Map getPointsList(){
-        for (int y = 0; y <1000 ; y++) {
-            for (int x = 0; x <1000 ; x++) {
-                TwoDPoints tdp = new TwoDPoints(loc, x*resolutionSize,resolutionSize*y,this);
-                addPoint("x"+String.valueOf(y),tdp);
-            }
-        }
-        return lop;
+    public abstract void getPointsList();
+
+    public void addPoint(String newKey, GraphicPoint newPoint){
+        lop.put(newKey,newPoint);
     }
-
-
-    public Map<String, TwoDPoints> getLop(){
-        return lop;
-    }
-
-
-    public void addPoint(String newKey, TwoDPoints newPoint){
-        if (!lop.containsKey(newKey)){
-            lop.put(newKey,newPoint);
-            newPoint.canvas = this;
-        }
-    }
-
-    // this method is reserved for future designs
-    /*public void drawGraph(List<GraphicPoint> lop){
-
-    }*/
-
 
 }

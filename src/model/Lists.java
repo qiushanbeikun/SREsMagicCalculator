@@ -3,8 +3,8 @@ package model;
 public interface Lists {
 
     //public void addElement (double number);
-    public void changes(int integer, double newValue);
-    public void removeElement (int position);
+    void changes(int integer, double newValue);
+    void removeElement (int position);
 
 
 

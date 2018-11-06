@@ -1,6 +1,6 @@
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
-import elements.Canvas.Canvas;
+import elements.Canvas.TwoDCanvas;
 import elements.Coefficient;
 import elements.ListsOfCoefficients;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ public class TestCanvasExceptions {
     Coefficient c2;
     Coefficient c3;
     ListsOfCoefficients loc;
-    Canvas canvas;
+    TwoDCanvas canvas;
 
     @BeforeEach
     public void runBefore() {
@@ -33,7 +33,7 @@ public class TestCanvasExceptions {
 
     @Test
     public void testCanvasExceptionsXField(){
-        canvas = new Canvas(10,0,0,10,loc);
+        canvas = new TwoDCanvas(10,0,0,10,loc);
         try {
             canvas.checkCanvas();
             fail("this test should catch some exceptions");
@@ -46,7 +46,7 @@ public class TestCanvasExceptions {
 
     @Test
     public void testCanvasExceptionsYField(){
-        canvas = new Canvas(0,10,10,0,loc);
+        canvas = new TwoDCanvas(0,10,10,0,loc);
         try {
             canvas.checkCanvas();
             fail("this test should catch some exceptions");
@@ -59,7 +59,7 @@ public class TestCanvasExceptions {
 
     @Test
     public void testCanvasExceptionsXTooLong(){
-        canvas = new Canvas(0,100,0,10,loc);
+        canvas = new TwoDCanvas(0,100,0,10,loc);
         try {
             canvas.checkCanvas();
             fail("this test should catch some exceptions");
@@ -72,7 +72,7 @@ public class TestCanvasExceptions {
 
     @Test
     public void testCanvasExceptionsYTooLong(){
-        canvas = new Canvas(0,100,0,10,loc);
+        canvas = new TwoDCanvas(0,100,0,10,loc);
         try {
             canvas.checkCanvas();
             fail("this test should catch some exceptions");
@@ -85,7 +85,7 @@ public class TestCanvasExceptions {
 
     @Test
     public void testCanvasExceptionsBoth(){
-        canvas = new Canvas(100,0,10,0,loc);
+        canvas = new TwoDCanvas(100,0,10,0,loc);
         try {
             canvas.checkCanvas();
         } catch (CanvasFieldException e) {
