@@ -5,10 +5,15 @@ import Exceptions.CanvasSizeException;
 import elements.Canvas.Canvas;
 import elements.Canvas.TwoDCanvas;
 import elements.Coefficient;
+import elements.Points.GraphicPoint;
 import elements.Points.TwoDPoints;
 import elements.TwoDEquation;
+import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,8 +38,17 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            main.webDataGetter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
+    // get coefficients to build a valid equation
     private TwoDEquation getCoefficients(){
         System.out.println("Welcome to the Quadratic equation solver.");
         boolean reloadStatus = true;
@@ -77,6 +91,7 @@ public class Main {
 
     }
 
+    // import data to build a valid equation
     private Coefficient importCoefficient(List<String> lines, int i) {
         Coefficient c1;
         c1 = new Coefficient(Double.valueOf(lines.get(0)), i);
@@ -111,12 +126,12 @@ public class Main {
 
     private List<Double> calculation(TwoDEquation loc){
         List<Double> answerList = new ArrayList<>();
-        double ans1 = calculateAnswerOne(loc.getOne(),loc.getTwo(),loc.getThree());
-        double ans2 = calculateAnswerTwo(loc.getOne(),loc.getTwo(),loc.getThree());
-        if (calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree())>0){
+        double ans1 = loc.calculateAnswerOne(loc.getOne(),loc.getTwo(),loc.getThree());
+        double ans2 = loc.calculateAnswerTwo(loc.getOne(),loc.getTwo(),loc.getThree());
+        if (loc.calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree())>0){
             answerList.add(ans1);
             answerList.add(ans2);
-        } else if (calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree()) ==0){
+        } else if (loc.calculateDelta(loc.getOne(),loc.getTwo(),loc.getThree()) ==0){
             answerList.add(ans1);
         } else {
             answerList = null;
@@ -175,22 +190,50 @@ public class Main {
             }
         } finally {
             ca.drawGraph();
-            //ca.illustrate();
+            ca.illustrate();
+
+
+
 
 
         }
     }
 
-    private double calculateDelta(double a, double b, double c){
-        return b*b-4*a*c;
+    public void webDataGetter()throws IOException {
+        BufferedReader br = null;
+
+        String apikey = "98b165680e5ff1ddca50085b26345efa"; //fill this in with the API key they email you
+        String londonweatherquery = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=";
+        String theURL=londonweatherquery+apikey;
+
+        try {
+
+            URL url = new URL(theURL);
+            br = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String line;
+
+            StringBuilder sb = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+
+                sb.append(line);
+                sb.append(System.lineSeparator());
+            }
+
+            JSONParser parser = new JSONParser();
+
+
+
+
+
+            System.out.println(sb);
+        } finally {
+
+            if (br != null) {
+                br.close();
+            }
+        }
     }
 
-    private double calculateAnswerTwo(double a, double b, double c){
-        return (-b-Math.sqrt(b*b-4*a*c))/(2*a);
     }
-
-    private double calculateAnswerOne(double a, double b, double c){
-        return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
-    }
-
-}

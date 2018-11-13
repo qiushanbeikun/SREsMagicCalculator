@@ -10,11 +10,8 @@ import java.util.Objects;
 
 public class TwoDPoints extends GraphicPoint {
 
-    private double x;
-    private double y;
     private ColorIndicator color;
-    private TwoDEquation loc;
-    public TwoDCanvas canvas;
+
 
 
     @Override
@@ -35,6 +32,7 @@ public class TwoDPoints extends GraphicPoint {
 
     public TwoDPoints(TwoDEquation loc, double x, double y, TwoDCanvas canvas) {
         super(loc, x, y, canvas);
+
     }
 
     private boolean pointOnTheGraph() {
@@ -59,12 +57,9 @@ public class TwoDPoints extends GraphicPoint {
         return loc.getOne()*x*x+loc.getTwo()*x+loc.getThree();
     }
 
-    public double getX(){
-        return x;
-    }
-
-    public double getY(){
-        return y;
+    @Override
+    public String getCor(){
+        return "("+x+","+y+")";
     }
 
 

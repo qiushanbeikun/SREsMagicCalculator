@@ -2,9 +2,9 @@ package elements.Canvas;
 
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
-import elements.Points.TwoDPoints;
 import elements.TwoDEquation;
 import elements.Points.GraphicPoint;
+import observer.Subject;
 
 
 import javax.imageio.ImageIO;
@@ -12,16 +12,16 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
-public abstract class Canvas {
+
+public abstract class Canvas extends Subject{
 
     private double xLeftBound;
     private double xRightBound;
     private double yUpBound;
     private double yDownBound;
-    private double resolutionSize;
-    private Map<String,GraphicPoint> lop;
+    public static double resolutionSize;
+    private Map<String, GraphicPoint> lop;
     private Set<String> keys;
     private Color color;
 
@@ -29,7 +29,7 @@ public abstract class Canvas {
 
     private Graphics background;
 
-    private TwoDEquation loc;
+    TwoDEquation loc;
 
 
     //REQUIRES: assume the canvas is square
@@ -39,7 +39,7 @@ public abstract class Canvas {
         this.xRightBound = xrb;
         this.yUpBound = yub;
         this.yDownBound = ydb;
-        resolutionSize = (xlb+xrb+ydb+yub)/2000;
+        resolutionSize = (xlb+xrb)/1000;
         this.loc = loc;
         lop = new HashMap<>();
         keys = new HashSet<>();
@@ -60,16 +60,17 @@ public abstract class Canvas {
     public abstract void getPointsList();
 
     protected void addPoint(String newKey, GraphicPoint newPoint){
-        lop.put(newKey,newPoint);
+        if (!lop.containsKey(newKey)){
+            lop.put(newKey,newPoint);
+            addObserver(newPoint);
+        }
     }
 
     public void drawGraph(){
 
         for (String key: keys) {
-
             color = getColorOfPoint(key);
             //System.out.println(color.getRed());
-
             //background.fillRect(getPos(0,key), getPos(1,key),1,1);
         }
 
@@ -78,7 +79,6 @@ public abstract class Canvas {
     public int getPos(int pos, String key){
         return Integer.parseInt(key.substring(pos,pos+1));
     }
-
 
     private Color getColorOfPoint(String key){
         return lop.get(key).getColor();
@@ -89,8 +89,8 @@ public abstract class Canvas {
     }
 
     public void illustrate(){
-        for (GraphicPoint tdp: lop.values()) {
-            System.out.println(tdp.getCor());
+        for (GraphicPoint gp: lop.values()) {
+            System.out.println(gp.getCor());
         }
     }
 

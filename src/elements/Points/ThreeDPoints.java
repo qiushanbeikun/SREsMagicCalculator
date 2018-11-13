@@ -68,6 +68,11 @@ public class ThreeDPoints extends GraphicPoint {
         return color;
     }
 
+    @Override
+    public String getCor() {
+        return "("+x+","+y+","+z+")";
+    }
+
     private int getColorPara(double z){
         return (int) Math.floor((z-min)/range*255);
     }

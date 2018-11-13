@@ -15,7 +15,6 @@ public class TwoDEquation implements Lists {
         items = new ArrayList<>();
     }
 
-
     //REQUIRES: an integer indicates the position of the element in the list; a double for the new value
     //MODIFIES: this
     //EFFECTS: change values in the list items
@@ -28,7 +27,6 @@ public class TwoDEquation implements Lists {
         items.get(position).changeValue(newValue);
     }
 
-
     //REQUIRES: double
     //MODIFIES: this
     //EFFECTS: add Coefficient in the list items.
@@ -36,19 +34,8 @@ public class TwoDEquation implements Lists {
         items.add(c);
     }
 
-
-    /*public void checkEquation(){
-        if (getOne() == 0){
-            throw new ArithmeticException("the first coefficient cannot be zero");
-        }
-    }*/
-
-
-
-
     @Override
     public void removeElement(int position){
-
     }
 
     //helper method
@@ -64,5 +51,16 @@ public class TwoDEquation implements Lists {
         return items.get(2).coefficient;
     }
 
+    public double calculateDelta(double a, double b, double c){
+        return b*b-4*a*c;
+    }
+
+    public double calculateAnswerTwo(double a, double b, double c){
+        return (-b-Math.sqrt(b*b-4*a*c))/(2*a);
+    }
+
+    public double calculateAnswerOne(double a, double b, double c){
+        return (-b+Math.sqrt(b*b-4*a*c))/(2*a);
+    }
 
 }

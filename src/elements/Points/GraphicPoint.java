@@ -4,17 +4,19 @@ package elements.Points;
 import elements.Canvas.TwoDCanvas;
 import elements.ColorIndicator;
 import elements.TwoDEquation;
+import observer.Observer;
+import observer.Subject;
 
 import java.awt.*;
 
 
-public abstract class GraphicPoint {
+public abstract class GraphicPoint extends Observer{
 
-    private double x;
-    private double y;
+    protected double x;
+    protected double y;
     public ColorIndicator color;
-    private TwoDEquation loc;
-    private TwoDCanvas canvas;
+    protected TwoDEquation loc;
+    TwoDCanvas canvas;
 
 
     public GraphicPoint(TwoDEquation loc, double x, double y, TwoDCanvas canvas){
@@ -31,12 +33,15 @@ public abstract class GraphicPoint {
         return (x == 0 || y == 0);
     }
 
+    public abstract String getCor();
 
-
-
-
-    public String getCor(){
-        return "("+x+","+y+")";
+    public double getX(){
+        return x;
     }
+
+    public double getY(){
+        return y;
+    }
+
 
 }
