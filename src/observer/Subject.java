@@ -1,6 +1,6 @@
 package observer;
 
-import elements.Coefficient;
+
 import elements.Points.GraphicPoint;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class Subject {
 
     public void notifyObservers(GraphicPoint gp){
         for (Observer obs: observers) {
-            obs.update(gp);
+            obs.updateNewDot(gp);
         }
 
     }

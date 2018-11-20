@@ -5,19 +5,15 @@ import Exceptions.CanvasSizeException;
 import elements.Canvas.Canvas;
 import elements.Canvas.TwoDCanvas;
 import elements.Coefficient;
-import elements.Points.GraphicPoint;
-import elements.Points.TwoDPoints;
 import elements.TwoDEquation;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.Buffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Main {
 
@@ -200,6 +196,8 @@ public class Main {
     }
 
     public void webDataGetter()throws IOException {
+
+
         BufferedReader br = null;
 
         String apikey = "98b165680e5ff1ddca50085b26345efa"; //fill this in with the API key they email you
@@ -211,6 +209,10 @@ public class Main {
             URL url = new URL(theURL);
             br = new BufferedReader(new InputStreamReader(url.openStream()));
 
+
+
+
+
             String line;
 
             StringBuilder sb = new StringBuilder();
@@ -221,7 +223,7 @@ public class Main {
                 sb.append(System.lineSeparator());
             }
 
-            
+
 
 
 

@@ -3,7 +3,11 @@ package observer;
 import elements.Points.GraphicPoint;
 
 public abstract class Observer {
-    public void update(GraphicPoint gp) {
+    public void updateNewDot(GraphicPoint gp) {
         System.out.println("a new point ("+ gp.getX()+","+gp.getY()+") has been added to the canvas");
+    }
+
+    public void updateNewColor(GraphicPoint gp){
+
     }
 }

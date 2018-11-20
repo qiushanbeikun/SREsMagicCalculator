@@ -2,16 +2,18 @@ package elements.Canvas;
 
 import Exceptions.CanvasFieldException;
 import Exceptions.CanvasSizeException;
-import elements.TwoDEquation;
 import elements.Points.GraphicPoint;
+import elements.TwoDEquation;
 import observer.Subject;
-
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 public abstract class Canvas extends Subject{
@@ -21,13 +23,16 @@ public abstract class Canvas extends Subject{
     private double yUpBound;
     private double yDownBound;
     public static double resolutionSize;
-    private Map<String, GraphicPoint> lop;
+    protected Map<String, GraphicPoint> lop;
     private Set<String> keys;
     private Color color;
 
     private Image img;
+    private int count = 0;
 
     private Graphics background;
+
+    private Color black = new Color(0,0,0);
 
     TwoDEquation loc;
 
@@ -60,9 +65,12 @@ public abstract class Canvas extends Subject{
     public abstract void getPointsList();
 
     protected void addPoint(String newKey, GraphicPoint newPoint){
+
         if (!lop.containsKey(newKey)){
             lop.put(newKey,newPoint);
             addObserver(newPoint);
+            count++;
+            System.out.println(count);
         }
     }
 
@@ -93,6 +101,16 @@ public abstract class Canvas extends Subject{
             System.out.println(gp.getCor());
         }
     }
+
+    /*public void makeDot(double x, double y){
+        lop.get(Integer.toString(coordinateToPixel(x)+coordinateToPixel(y))).getColor() = black;
+    }*/
+
+    /*private int coordinateToPixel(double adouble){
+        return (int) (Math.abs(adouble/resolutionSize));
+    }*/
+
+
 
 
 }

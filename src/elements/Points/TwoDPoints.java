@@ -10,8 +10,8 @@ import java.util.Objects;
 
 public class TwoDPoints extends GraphicPoint {
 
-    private ColorIndicator color;
 
+    private ColorIndicator color;
 
 
     @Override
