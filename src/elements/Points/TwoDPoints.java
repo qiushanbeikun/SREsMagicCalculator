@@ -2,8 +2,9 @@ package elements.Points;
 
 
 import elements.Canvas.TwoDCanvas;
-import elements.ColorIndicator;
-import elements.TwoDEquation;
+import equation.TwoDEquation;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
@@ -11,7 +12,11 @@ import java.util.Objects;
 public class TwoDPoints extends GraphicPoint {
 
 
-    private ColorIndicator color;
+    private double x;
+    private double y;
+    private Color color;
+    private TwoDEquation loc;
+    private TwoDCanvas canvas;
 
 
     @Override
@@ -31,22 +36,22 @@ public class TwoDPoints extends GraphicPoint {
     }
 
     public TwoDPoints(TwoDEquation loc, double x, double y, TwoDCanvas canvas) {
-        super(loc, x, y, canvas);
-
+        this.loc = loc;
+        this.x = x;
+        this.y =y;
+        this.canvas = canvas;
+        color = new Color(0,0,0);
     }
 
     private boolean pointOnTheGraph() {
         return ApproximateTreatment(y, calculatePoint(x));
     }
 
-    @Override
-    public Color getColor() {
-        if (pointOnCoordinate() || pointOnTheGraph()) {
-            color = new ColorIndicator(0, 0, 0);
-        } else {
-            color = new ColorIndicator(255, 255, 255);
-        }
-        return color;
+
+
+
+    public Color getterColor(){
+        return this.color;
     }
 
     private boolean ApproximateTreatment(double t, double a) {
@@ -62,5 +67,25 @@ public class TwoDPoints extends GraphicPoint {
         return "("+x+","+y+")";
     }
 
+    public int getX(){
+        return (int) Math.floor(this.x/canvas.resolutionSize+250);
+    }
 
+    public int getY(){
+        return (int) Math.floor(-this.y/canvas.resolutionSize+250) ;
+    }
+
+    public boolean pointOnCoordinate(){
+        return (x == 0 || y == 0);
+    }
+
+    /*public Graphics drawPoint(){
+        Dot dot = new Dot();
+
+
+    }*/
+
+    private class Dot extends JPanel{
+
+    }
 }

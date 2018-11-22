@@ -4,10 +4,7 @@ import elements.Points.GraphicPoint;
 
 public abstract class Observer {
     public void updateNewDot(GraphicPoint gp) {
-        System.out.println("a new point ("+ gp.getX()+","+gp.getY()+") has been added to the canvas");
+        System.out.println("a new point () has been added to the canvas");
     }
 
-    public void updateNewColor(GraphicPoint gp){
-
-    }
 }

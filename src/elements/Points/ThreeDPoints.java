@@ -1,12 +1,9 @@
 package elements.Points;
 
 import elements.Canvas.ThreeDCanvas;
-import elements.Canvas.TwoDCanvas;
-import elements.ColorIndicator;
-import elements.TwoDEquation;
+import equation.ThreeDEquation;
 
 import java.awt.*;
-import java.util.Objects;
 
 
 public class ThreeDPoints extends GraphicPoint {
@@ -19,53 +16,42 @@ public class ThreeDPoints extends GraphicPoint {
     private double min;
     private double range;
 
-    public ColorIndicator color;
-    private TwoDEquation loc;
-    //canvas will be needed to determine the min max and range
-    public ThreeDCanvas canvas;
+    private Color color;
+    private ThreeDEquation loc;
+    private ThreeDCanvas canvas;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ThreeDPoints that = (ThreeDPoints) o;
-        return Double.compare(that.x, x) == 0 &&
-                Double.compare(that.y, y) == 0 &&
-                Double.compare(that.z, z) == 0;
-    }
 
-    @Override
-    public int hashCode() {
 
-        return Objects.hash(x, y, z);
-    }
-
-    public ThreeDPoints(TwoDEquation loc, double x, double y, TwoDCanvas canvas){
-        super(loc, x, y, canvas);
-        //choose default settings for the min max and range
-        max=10;
-        min=0;
-        range=10;
-
+    public ThreeDPoints(ThreeDEquation loc, double x, double y, ThreeDCanvas canvas){
+        this.loc = loc;
+        this.x = x;
+        this.y = y;
+        this.canvas = canvas;
         calculatePoint(x, y);
+        getMaxMinAndRange();
+        getColor();
     }
 
     @Override
-    public Color getColor() {
-        if (z <= min+range/6){
-            color = new ColorIndicator(255, getColorPara(z), 0);
+    public void getColor() {
+        if (x==0 || y == 0){
+            color = new Color(0,0,0);
+        } else if (z <= min+range/6){
+            color = new Color(255, getColorPara(z), 0);
         } else if (z>min+range/6 && z<= min+range/3){
-            color = new ColorIndicator(255-getColorPara(z),255, 0);
+            color = new Color(255-getColorPara(z),255, 0);
         } else if (z>min+range/3 && z<=min+range/2){
-            color = new ColorIndicator(0, 255, getColorPara(z));
+            color = new Color(0, 255, getColorPara(z));
         } else if (z>min+range/2 && z<= min+2*range/3){
-            color = new ColorIndicator(0, 255-getColorPara(z), 255);
+            color = new Color(0, 255-getColorPara(z), 255);
         } else if (z>min-2*range/3 && z<= min+5*range/6){
-            color = new ColorIndicator(getColorPara(z), 0, 255);
+            color = new Color(getColorPara(z), 0, 255);
         }else {
-            color = new ColorIndicator(255, 0, 2555-getColorPara(z));
+            color = new Color(255, 0, 255-getColorPara(z));
         }
-        return color;
+
+
+
     }
 
     @Override
@@ -74,23 +60,55 @@ public class ThreeDPoints extends GraphicPoint {
     }
 
     private int getColorPara(double z){
-        return (int) Math.floor((z-min)/range*255);
+        return (int) Math.floor(255*(z-min)/range);
     }
 
     private void calculatePoint(double x, double y) {
-        // default setting, take value randomly from 0 to 10
-        z = Math.random()*9+1;
+        z = loc.getOne()*x+loc.getTwo()*y+loc.getThree();
     }
 
-    public double getX(){
-        return x;
+    private double returnPointValue(double x, double y) {
+        return loc.getOne()*x+loc.getTwo()*y+loc.getThree();
     }
 
-    public double getY(){
-        return y;
+    public int getX(){
+        return (int) Math.floor(this.x/canvas.resolutionSize+250);
+    }
+
+    public int getY(){
+        return (int) Math.floor(-this.y/canvas.resolutionSize+250) ;
+    }
+
+    public double getMax(){
+        return max;
+    }
+
+    public double getMin(){
+        return min;
     }
 
     public double getZ(){
         return z;
+    }
+
+
+    public void getMaxMinAndRange() {
+
+        double pointOne = returnPointValue(canvas.getXLeftBound(), canvas.getYDownBound());
+        double pointTwo = returnPointValue(canvas.getXLeftBound(),canvas.getYUpBound());
+        double pointThree = returnPointValue(canvas.getXRightBound(),canvas.getYDownBound());
+        double pointFour = returnPointValue(canvas.getXRightBound(),canvas.getYUpBound());
+
+        max = Math.max(pointOne, Math.max(pointTwo, Math.max(pointThree, pointFour)));
+        min = Math.min(pointOne, Math.min(pointTwo, Math.min(pointThree, pointFour)));
+        range = max-min;
+    }
+
+    public boolean pointOnCoordinate(){
+        return (x == 0 || y == 0);
+    }
+
+    public Color getterColor(){
+        return this.color;
     }
 }

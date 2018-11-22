@@ -1,20 +1,19 @@
-package elements;
+package equation;
 
-import model.Values;
 
-public class Coefficient implements Values {
+
+public class Coefficient {
     double coefficient;
     int index;
 
     //REQUIRES: the input should be double
     // MODIFIES: this
     // EFFECTS: initialize the coefficient with the value in input
-    public Coefficient(double input, int index) throws NumberFormatException{
+    public Coefficient(double input, int index) {
         coefficient = input;
         this.index = index;
     }
 
-    @Override
     //REQUIRES: the input should be double
     //MODIFIES: this
     //EFFECTS: change the value of coefficient ot the new input
@@ -22,7 +21,6 @@ public class Coefficient implements Values {
         coefficient = newInput;
     }
 
-    @Override
     //REQUIRES: double input
     //MODIFIES: this
     //EFFECTS: a quick access to change the value of Coe to its negative

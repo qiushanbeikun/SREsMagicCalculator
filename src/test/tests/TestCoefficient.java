@@ -1,4 +1,4 @@
-import elements.Coefficient;
+import equation.Coefficient;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
