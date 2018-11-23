@@ -14,7 +14,8 @@ public class TwoDCanvas extends Canvas {
     private double yUpBound;
     private double yDownBound;
     public double resolutionSize;
-    private ArrayList<TwoDPoints> lop = new ArrayList<>();
+    public ArrayList<TwoDPoints> lop = new ArrayList<>();
+    public GraphicsTool aTwoDGraph = new GraphicsTool();
 
     public TwoDEquation loc;
 
@@ -37,13 +38,31 @@ public class TwoDCanvas extends Canvas {
             double thisX = xLeftBound+i*resolutionSize;
             double thisY = loc.calculateY(xLeftBound+i*resolutionSize);
             TwoDPoints tdp = new TwoDPoints(loc, thisX, thisY, this);
-            TwoDPoints tdpXCoor = new TwoDPoints(loc, thisX, 0, this);
-            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisX, this);
+            /*TwoDPoints tdpXCoor = new TwoDPoints(loc, thisX, 0, this);
+            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisX, this);*/
             lop.add(tdp);
-            lop.add(tdpXCoor);
+  /*          lop.add(tdpXCoor);
             lop.add(tdpYCoor);
-
+*/
         }
+
+        for (int i = 0; i < 500; i++) {
+            double thisX = xLeftBound+i*resolutionSize;
+
+            TwoDPoints tdpXCoor = new TwoDPoints(loc, thisX, 0, this);
+
+            lop.add(tdpXCoor);
+        }
+
+        for (int i = 0; i < 500; i++) {
+            double thisX = xLeftBound+i*resolutionSize;
+
+            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisX, this);
+
+            lop.add(tdpYCoor);
+        }
+
+
 
     }
 
@@ -56,7 +75,7 @@ public class TwoDCanvas extends Canvas {
 
     @Override
     public GraphicsTool drawGraph() {
-        GraphicsTool aTwoDGraph = new GraphicsTool();
+
         aTwoDGraph.setPreferredSize(new Dimension(500, 500));
 
         return aTwoDGraph;
@@ -81,9 +100,19 @@ public class TwoDCanvas extends Canvas {
             super.paintComponent(g);
             this.setBackground(Color.WHITE);
 
+            int count = 0;
+
             for (TwoDPoints tdp : lop) {
+
+                count++;
                 g.setColor(tdp.getterColor());
                 g.fillRect(tdp.getX(), tdp.getY(), 1, 1);
+                if ((count>1 && count<500) || (count >1003 && count<1500) ){
+                    TwoDPoints previous = lop.get(count-2);
+                    g.drawLine(previous.getX(),previous.getY(), tdp.getX(), tdp.getY());
+                }
+
+
             }
         }
     }

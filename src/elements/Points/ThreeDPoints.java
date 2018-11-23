@@ -34,20 +34,23 @@ public class ThreeDPoints extends GraphicPoint {
 
     @Override
     public void getColor() {
-        if (x==0 || y == 0){
-            color = new Color(0,0,0);
-        } else if (z <= min+range/6){
+        if (x==0 || y == 0) {
+            color = new Color(0, 0, 0);
+        /*} else {
             color = new Color(255, getColorPara(z), 0);
+        }*/
+        } else if (z <= min+range/6){
+            color = new Color(255,getColorPara(z,min) , 0);
         } else if (z>min+range/6 && z<= min+range/3){
-            color = new Color(255-getColorPara(z),255, 0);
+            color = new Color(255-getColorPara(z, min+range/6),255, 0);
         } else if (z>min+range/3 && z<=min+range/2){
-            color = new Color(0, 255, getColorPara(z));
+            color = new Color(0, 255, getColorPara(z, min+range/3));
         } else if (z>min+range/2 && z<= min+2*range/3){
-            color = new Color(0, 255-getColorPara(z), 255);
-        } else if (z>min-2*range/3 && z<= min+5*range/6){
-            color = new Color(getColorPara(z), 0, 255);
+            color = new Color(0, 255-getColorPara(z, min+range/2), 255);
+        } else if (z>min+2*range/3 && z<= min+5*range/6){
+            color = new Color(getColorPara(z, min+2*range/3), 0, 255);
         }else {
-            color = new Color(255, 0, 255-getColorPara(z));
+            color = new Color(255, 0, 255-getColorPara(z, min+5*range/6));
         }
 
 
@@ -59,8 +62,9 @@ public class ThreeDPoints extends GraphicPoint {
         return "("+x+","+y+","+z+")";
     }
 
-    private int getColorPara(double z){
-        return (int) Math.floor(255*(z-min)/range);
+    private int getColorPara(double z, double lowerLimit){
+        return (int) Math.floor(255*(z-lowerLimit)/(range/6));
+        //return (int) Math.floor(Math.random()*255);
     }
 
     private void calculatePoint(double x, double y) {
