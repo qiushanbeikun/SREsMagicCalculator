@@ -72,11 +72,11 @@ public class ThreeDPoints extends GraphicPoint {
     }
 
     public int getX(){
-        return (int) Math.floor(this.x/canvas.resolutionSize+250);
+        return (int) Math.round(this.x/canvas.resolutionSize+250);
     }
 
     public int getY(){
-        return (int) Math.floor(-this.y/canvas.resolutionSize+250) ;
+        return (int) Math.round(-this.y/canvas.resolutionSize+250) ;
     }
 
     public Color getterColor(){
