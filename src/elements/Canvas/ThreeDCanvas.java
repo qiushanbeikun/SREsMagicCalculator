@@ -16,6 +16,10 @@ public class ThreeDCanvas extends Canvas{
     public double resolutionSize ;
     public ArrayList<ThreeDPoints> lop = new ArrayList();
 
+    public double max;
+    public double min;
+    public double range;
+
     public ThreeDEquation loc;
 
     public ThreeDCanvas(ThreeDEquation loc)  {
@@ -25,7 +29,9 @@ public class ThreeDCanvas extends Canvas{
         this.yDownBound = -5;
         this.loc = loc;
         resolutionSize = 0.02;
+        getMaxMinAndRange();
         getPointsList();
+
 
 
     }
@@ -87,6 +93,22 @@ public class ThreeDCanvas extends Canvas{
                 g.fillRect(tdp.getX(), tdp.getY(), 1, 1);
             }
         }
+    }
+
+    public void getMaxMinAndRange() {
+
+        double pointOne = returnPointValue(getXLeftBound(), getYDownBound());
+        double pointTwo = returnPointValue(getXLeftBound(),getYUpBound());
+        double pointThree = returnPointValue(getXRightBound(),getYDownBound());
+        double pointFour = returnPointValue(getXRightBound(),getYUpBound());
+
+        max = Math.max(pointOne, Math.max(pointTwo, Math.max(pointThree, pointFour)));
+        min = Math.min(pointOne, Math.min(pointTwo, Math.min(pointThree, pointFour)));
+        range = max-min;
+    }
+
+    private double returnPointValue(double x, double y) {
+        return loc.getOne()*x+loc.getTwo()*y+loc.getThree();
     }
 
 }

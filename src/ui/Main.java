@@ -215,6 +215,7 @@ public class Main {
             else if (e.getSource() == buttonGraph2){
                 ta2.append("Drawing graph of z = "+textField4.getText()+"x +"+textField5.getText()+"y+"+textField6.getText()+" =0\n");
                 ThreeDCanvas threeDCanvas = new ThreeDCanvas(getVector());
+                System.out.println(threeDCanvas.resolutionSize);
                 System.out.println(threeDCanvas.lop.get(0).getX());
                 System.out.println(threeDCanvas.lop.get(0).getY());
                 System.out.println(threeDCanvas.lop.get(0).getterColor().getRed());
@@ -235,6 +236,11 @@ public class Main {
                 System.out.println(threeDCanvas.lop.get(3).getterColor().getRed());
                 System.out.println(threeDCanvas.lop.get(3).getterColor().getGreen());
                 System.out.println(threeDCanvas.lop.get(3).getterColor().getBlue());
+                System.out.println(threeDCanvas.lop.get(4).getX());
+                System.out.println(threeDCanvas.lop.get(4).getY());
+                System.out.println(threeDCanvas.lop.get(4).getterColor().getRed());
+                System.out.println(threeDCanvas.lop.get(4).getterColor().getGreen());
+                System.out.println(threeDCanvas.lop.get(4).getterColor().getBlue());
 
                 graphic3d = threeDCanvas.drawGraph();
                 card2.add(graphic3d);

@@ -28,7 +28,9 @@ public class ThreeDPoints extends GraphicPoint {
         this.y = y;
         this.canvas = canvas;
         calculatePoint(x, y);
-        getMaxMinAndRange();
+        this.max = canvas.max;
+        this.min = canvas.min;
+        this.range= canvas.range;
         getColor();
     }
 
@@ -69,29 +71,12 @@ public class ThreeDPoints extends GraphicPoint {
         z = loc.getOne()*x+loc.getTwo()*y+loc.getThree();
     }
 
-    private double returnPointValue(double x, double y) {
-        return loc.getOne()*x+loc.getTwo()*y+loc.getThree();
-    }
-
     public int getX(){
         return (int) Math.floor(this.x/canvas.resolutionSize+250);
     }
 
     public int getY(){
         return (int) Math.floor(-this.y/canvas.resolutionSize+250) ;
-    }
-
-
-    public void getMaxMinAndRange() {
-
-        double pointOne = returnPointValue(canvas.getXLeftBound(), canvas.getYDownBound());
-        double pointTwo = returnPointValue(canvas.getXLeftBound(),canvas.getYUpBound());
-        double pointThree = returnPointValue(canvas.getXRightBound(),canvas.getYDownBound());
-        double pointFour = returnPointValue(canvas.getXRightBound(),canvas.getYUpBound());
-
-        max = Math.max(pointOne, Math.max(pointTwo, Math.max(pointThree, pointFour)));
-        min = Math.min(pointOne, Math.min(pointTwo, Math.min(pointThree, pointFour)));
-        range = max-min;
     }
 
     public Color getterColor(){
