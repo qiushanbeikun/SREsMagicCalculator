@@ -24,17 +24,18 @@ public class ThreeDCanvas extends Canvas{
         this.yUpBound = 5;
         this.yDownBound = -5;
         this.loc = loc;
-        getPointsList();
         resolutionSize = 0.02;
+        getPointsList();
+
 
     }
 
     @Override
     public void getPointsList() {
         for (int y = 0; y < 500; y++) {
-            double thisY = yUpBound-y*0.02;
+            double thisY = yUpBound-y*resolutionSize;
             for (int x = 0; x < 500; x++) {
-                double thisX = xLeftBound+x*0.02;
+                double thisX = xLeftBound+x*resolutionSize;
                 ThreeDPoints tdp = new ThreeDPoints(loc, thisX, thisY, this);
                 lop.add(tdp);
             }

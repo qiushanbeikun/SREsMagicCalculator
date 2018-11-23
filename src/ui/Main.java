@@ -47,8 +47,7 @@ public class Main {
     private JPanel card2;
     private CardLayout cl;
     private JPanel cards;
-    private final String TWOD = "Quadratic Equation Calculator";
-    private final String THREED = "3D Plane Drawer";
+
 
     private Main(){
         frame = new JFrame("SRE's Magic Calculator");
@@ -60,6 +59,9 @@ public class Main {
     }
 
     private void addComponentToPane(Container pane) {
+
+        final String TWOD = "Quadratic Equation Calculator";
+        final String THREED = "3D Plane Drawer";
 
         JPanel comboBoxPane = new JPanel();
         String comboBoxItems[] = { TWOD, THREED };
@@ -205,34 +207,48 @@ public class Main {
                 }
             }else if(e.getSource() == buttonGraph1) {
                 ta1.append("Drawing graph of "+textField1.getText()+"x^2+"+textField2.getText()+"x+"+textField1.getText()+"=0\n");
-
                 TwoDCanvas twoDCanvas = new TwoDCanvas(Double.valueOf(textFieldXL.getText()),Double.valueOf(textFieldXR.getText()),Double.valueOf(textFieldYD.getText()),Double.valueOf(textFieldYU.getText()), getCoefficients());
-                ta1.append(Integer.toString(twoDCanvas.lop.size()));
                 graphic = twoDCanvas.drawGraph();
                 card1.add(graphic);
                 frame.setVisible(true);
-
-            }else if (e.getSource() == buttonGraph2){
+            }
+            else if (e.getSource() == buttonGraph2){
                 ta2.append("Drawing graph of z = "+textField4.getText()+"x +"+textField5.getText()+"y+"+textField6.getText()+" =0\n");
                 ThreeDCanvas threeDCanvas = new ThreeDCanvas(getVector());
-                /*ta2.append(Integer.toString(threeDCanvas.lop.get(225).getterColor().getRed())+"\n");
-                ta2.append(Integer.toString(threeDCanvas.lop.get(225).getterColor().getGreen())+"\n");
-                ta2.append(Integer.toString(threeDCanvas.lop.get(225).getterColor().getBlue())+"\n");*/
+                System.out.println(threeDCanvas.lop.get(0).getX());
+                System.out.println(threeDCanvas.lop.get(0).getY());
+                System.out.println(threeDCanvas.lop.get(0).getterColor().getRed());
+                System.out.println(threeDCanvas.lop.get(0).getterColor().getGreen());
+                System.out.println(threeDCanvas.lop.get(0).getterColor().getBlue());
+                System.out.println(threeDCanvas.lop.get(1).getX());
+                System.out.println(threeDCanvas.lop.get(1).getY());
+                System.out.println(threeDCanvas.lop.get(1).getterColor().getRed());
+                System.out.println(threeDCanvas.lop.get(1).getterColor().getGreen());
+                System.out.println(threeDCanvas.lop.get(1).getterColor().getBlue());
+                System.out.println(threeDCanvas.lop.get(2).getX());
+                System.out.println(threeDCanvas.lop.get(2).getY());
+                System.out.println(threeDCanvas.lop.get(2).getterColor().getRed());
+                System.out.println(threeDCanvas.lop.get(2).getterColor().getGreen());
+                System.out.println(threeDCanvas.lop.get(2).getterColor().getBlue());
+                System.out.println(threeDCanvas.lop.get(3).getX());
+                System.out.println(threeDCanvas.lop.get(3).getY());
+                System.out.println(threeDCanvas.lop.get(3).getterColor().getRed());
+                System.out.println(threeDCanvas.lop.get(3).getterColor().getGreen());
+                System.out.println(threeDCanvas.lop.get(3).getterColor().getBlue());
 
                 graphic3d = threeDCanvas.drawGraph();
-
                 card2.add(graphic3d);
                 frame.setVisible(true);
-            } else if (e.getSource() == setBoundaries){
+            }
+            else if (e.getSource() == setBoundaries){
                 XL.setVisible(true);
                 textFieldXL.setVisible(true);
                 textFieldXR.setVisible(true);
                 YL.setVisible(true);
                 textFieldYU.setVisible(true);
                 textFieldYD.setVisible(true);
-
-
-            }else{
+            }
+            else{
                 ta1.append("you have not entered the equation.");
             }
         }
@@ -248,9 +264,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        new Main();
-    }
+
 
     private void doThingsWithTwoD(){
         TwoDEquation loc = getCoefficients();
@@ -325,7 +339,10 @@ public class Main {
             writer.println(a);
         }
         writer.close();
+        }
     }
+    public static void main(String[] args) {
+        new Main();
     }
 
 }

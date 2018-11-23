@@ -9,15 +9,14 @@ import java.util.ArrayList;
 
 
 public class TwoDCanvas extends Canvas {
-    private double xLeftBound;
+    public double xLeftBound;
     private double xRightBound;
-    private double yUpBound;
+    public double yUpBound;
     private double yDownBound;
     public double resolutionSize;
     public ArrayList<TwoDPoints> lop = new ArrayList<>();
-    public GraphicsTool aTwoDGraph = new GraphicsTool();
-
-    public TwoDEquation loc;
+    private GraphicsTool aTwoDGraph = new GraphicsTool();
+    private TwoDEquation loc;
 
 
     // REQUIRES: assume the canvas is square
@@ -38,32 +37,20 @@ public class TwoDCanvas extends Canvas {
             double thisX = xLeftBound+i*resolutionSize;
             double thisY = loc.calculateY(xLeftBound+i*resolutionSize);
             TwoDPoints tdp = new TwoDPoints(loc, thisX, thisY, this);
-            /*TwoDPoints tdpXCoor = new TwoDPoints(loc, thisX, 0, this);
-            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisX, this);*/
             lop.add(tdp);
-  /*          lop.add(tdpXCoor);
-            lop.add(tdpYCoor);
-*/
         }
 
         for (int i = 0; i < 500; i++) {
             double thisX = xLeftBound+i*resolutionSize;
-
             TwoDPoints tdpXCoor = new TwoDPoints(loc, thisX, 0, this);
-
             lop.add(tdpXCoor);
         }
 
         for (int i = 0; i < 500; i++) {
-            double thisX = xLeftBound+i*resolutionSize;
-
-            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisX, this);
-
+            double thisY = yDownBound+i*resolutionSize;
+            TwoDPoints tdpYCoor = new TwoDPoints(loc, 0, thisY, this);
             lop.add(tdpYCoor);
         }
-
-
-
     }
 
     @Override
@@ -75,23 +62,8 @@ public class TwoDCanvas extends Canvas {
 
     @Override
     public GraphicsTool drawGraph() {
-
         aTwoDGraph.setPreferredSize(new Dimension(500, 500));
-
         return aTwoDGraph;
-    }
-
-    public double getXLeftBound(){
-        return xLeftBound;
-    }
-    public double getXRightBound(){
-        return xRightBound;
-    }
-    public double getYUpBound(){
-        return yUpBound;
-    }
-    public double getYDownBound(){
-        return yDownBound;
     }
 
 
@@ -99,20 +71,15 @@ public class TwoDCanvas extends Canvas {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             this.setBackground(Color.WHITE);
-
             int count = 0;
-
             for (TwoDPoints tdp : lop) {
-
                 count++;
                 g.setColor(tdp.getterColor());
                 g.fillRect(tdp.getX(), tdp.getY(), 1, 1);
-                if ((count>1 && count<500) || (count >1003 && count<1500) ){
+                if ((count>1 && count<500) || (count >501 && count<1000) || (count > 1001 && count <1500) ){
                     TwoDPoints previous = lop.get(count-2);
                     g.drawLine(previous.getX(),previous.getY(), tdp.getX(), tdp.getY());
                 }
-
-
             }
         }
     }

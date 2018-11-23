@@ -54,7 +54,6 @@ public class ThreeDPoints extends GraphicPoint {
         }
 
 
-
     }
 
     @Override
@@ -64,7 +63,6 @@ public class ThreeDPoints extends GraphicPoint {
 
     private int getColorPara(double z, double lowerLimit){
         return (int) Math.floor(255*(z-lowerLimit)/(range/6));
-        //return (int) Math.floor(Math.random()*255);
     }
 
     private void calculatePoint(double x, double y) {
@@ -83,18 +81,6 @@ public class ThreeDPoints extends GraphicPoint {
         return (int) Math.floor(-this.y/canvas.resolutionSize+250) ;
     }
 
-    public double getMax(){
-        return max;
-    }
-
-    public double getMin(){
-        return min;
-    }
-
-    public double getZ(){
-        return z;
-    }
-
 
     public void getMaxMinAndRange() {
 
@@ -106,10 +92,6 @@ public class ThreeDPoints extends GraphicPoint {
         max = Math.max(pointOne, Math.max(pointTwo, Math.max(pointThree, pointFour)));
         min = Math.min(pointOne, Math.min(pointTwo, Math.min(pointThree, pointFour)));
         range = max-min;
-    }
-
-    public boolean pointOnCoordinate(){
-        return (x == 0 || y == 0);
     }
 
     public Color getterColor(){
